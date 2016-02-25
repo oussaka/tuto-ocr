@@ -5,6 +5,7 @@ namespace ChrisScientistPlatformBundle\Controller ;
 use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;  // Penser à inclure cette classe et à faire hériter notre contrôleur !
 use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette classe !
+use Symfony\Component\HttpFoundation\RedirectResponse ; // Penser à inclure cette classe !
 
 class AdvertController extends Controller
 {
@@ -16,8 +17,9 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Méthode raccourcie (2) pour utiliser une vue Twig
-        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', array('id'=>$id)) ;
+        // Rediriger vers une URL
+        $url = $this->get('router')->generate('chris_scientist_platform_home') ;
+        return new RedirectResponse($url) ;
     }
     
     public function addAction()
