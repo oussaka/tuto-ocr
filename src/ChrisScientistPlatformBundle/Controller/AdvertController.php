@@ -9,8 +9,8 @@ class AdvertController extends Controller
 {
     public function indexAction()
     {
-        // Générer une URL relative depuis le contrôleur
-        $url = $this->get('router')->generate('chris_scientist_platform_view', array('id' => 33)) ;
+        // Générer une URL absolue depuis le contrôleur
+        $url = $this->get('router')->generate('chris_scientist_platform_view', array('id' => 33), true) ;
         return new Response("L'URL de l'annonce d'ID 33 est : ".$url) ;
     }
     
