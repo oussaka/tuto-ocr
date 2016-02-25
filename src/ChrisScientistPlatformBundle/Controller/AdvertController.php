@@ -17,9 +17,8 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Rediriger vers une URL
-        $url = $this->get('router')->generate('chris_scientist_platform_home') ;
-        return new RedirectResponse($url) ;
+        // Rediriger vers une URL : méthode raccourcie
+        return $this->redirectToRoute('chris_scientist_platform_home') ;
     }
     
     public function addAction()
