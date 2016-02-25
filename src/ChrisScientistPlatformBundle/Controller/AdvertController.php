@@ -17,8 +17,10 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Rediriger vers une URL : méthode raccourcie
-        return $this->redirectToRoute('chris_scientist_platform_home') ;
+        // Changer le Content-type de la réponse
+        $response = new Response(json_encode(array('id' => $id))) ;
+        $response->headers->set('Content-Type', 'application/json') ;
+        return $response ;
     }
     
     public function addAction()
