@@ -10,6 +10,11 @@
         
         <h2>Afficher des messages flash (contenus en session)</h2>
         
+        <ul>
+            <li><a href="{{ url('chris_scientist_platform_edit', {'id':id}) }}" >Modifier</a></li>
+            <li><a href="{{ url('chris_scientist_platform_delete', {'id':id}) }}" >Supprimer</a></li>
+        </ul>
+        
         <p>
             {% for message in app.session.flashbag.get('info') %}
                 <p>Message flash : {{ message }}</p>
@@ -17,7 +22,7 @@
         </p>
         
         <p>
-            <a href="{{ url('chris_scientist_platform_home') }}" >Retour à l'accueil</a> | Page réalisée par chris-scientist
+            <a href="{{ url('chris_scientist_platform_home') }}" >Retour à l'accueil</a> | Page réalisée par {{ webmaster }}.
         </p>
     </body>
 </html>

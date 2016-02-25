@@ -5,13 +5,17 @@ namespace ChrisScientistPlatformBundle\Controller ;
 use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;  // Penser à inclure cette classe et à faire hériter notre contrôleur !
 use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette classe !
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException ; // Penser à inclure cette classe !
 
 class AdvertController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
-        $content = $this->get('templating')->render('ChrisScientistPlatformBundle:Advert:index.html.twig') ;
-        return new Response($content) ;
+        if($page < 1) {
+            throw new NotFoundHttpException("Page &laquo; ".$page." &raquo; inexistante.") ;
+        }
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:index.html.twig') ;
     }
     
     public function viewAction($id, Request $request)
@@ -21,19 +25,30 @@ class AdvertController extends Controller
     
     public function addAction(Request $request)
     {
-        $session = $request->getSession() ;
-        $session->getFlashBag()->add('info', 'Annonce bien enregistrée') ;
-        $session->getFlashBag()->add('info', 'Elle est vraiment (pas) enregistrée') ;
-        return $this->redirectToRoute('chris_scientist_platform_view', array('id' => 33)) ;
+        if($request->isMethod('POST'))
+        {
+            $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée') ;
+            
+            return $this->redirectToRoute('chris_scientist_platform_view', array('id' => 33)) ;
+        }
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:add.html.twig') ;
     }
     
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
-        return new Response("Pour modifier l'annonce ".$id.", revenez plus tard...") ;
+        if($request->isMethod('POST'))
+        {
+            $request->getSession()->getFlashBag()->add('info', 'Annonce bien modifiée') ;
+            
+            return $this->redirectToRoute('chris_scientist_platform_view', array('id' => 33)) ;
+        }
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:edit.html.twig') ;
     }
     
     public function deleteAction($id)
     {
-        return new Response("Pour supprimer l'annonce ".$id.", revenez plus tard...") ;
+        return $this->render('ChrisScientistPlatformBundle:Advert:delete.html.twig') ;
     }
 }
