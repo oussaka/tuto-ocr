@@ -16,11 +16,8 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Générer une erreur 404
-        $response = new Response() ;
-        $response->setContent("Erreur 404, sorry Boby") ;
-        $response->setStatusCode(Response::HTTP_NOT_FOUND) ;
-        return $response ;
+        // Méthode raccourcie (1) pour utiliser une vue Twig
+        return $this->get('templating')->renderResponse('ChrisScientistPlatformBundle:Advert:view.html.twig', array('id'=>$id)) ;
     }
     
     public function addAction()
