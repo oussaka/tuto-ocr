@@ -14,4 +14,11 @@ class AdvertController extends Controller
         $content = $this->get('templating')->render('ChrisScientistPlatformBundle:Advert:index.html.twig', array('name' => 'Christopher')) ;
         return new Response($content) ;
     }
+    
+    public function viewAction($id)
+    {
+        // Renvoyer une réponse rapide
+        // en récupérant un paramètre de la route ($id)
+        return new Response("Affichage de l'annonce dont l'ID est &laquo; ".$id." &raquo;.") ;
+    }
 }
