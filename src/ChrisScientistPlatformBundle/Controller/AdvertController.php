@@ -16,16 +16,15 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Manipuler la session
-        $session = $request->getSession() ;
-        $userId = $session->get('user_id') ;    // Récupérer le valeur de la variable 'user_id'
-        $session->set('user_id', 33) ;
-        return new Response("La variable &laquo; user_id &raquo; (de la session) valait &laquo; ".$userId." &raquo;.") ;
+        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', array('id'=>$id)) ;
     }
     
-    public function addAction()
+    public function addAction(Request $request)
     {
-        return new Response("Pour ajouter une annonce, revenez plus tard...") ;
+        $session = $request->getSession() ;
+        $session->getFlashBag()->add('info', 'Annonce bien enregistrée') ;
+        $session->getFlashBag()->add('info', 'Elle est vraiment (pas) enregistrée') ;
+        return $this->redirectToRoute('chris_scientist_platform_view', array('id' => 33)) ;
     }
     
     public function editAction($id)
