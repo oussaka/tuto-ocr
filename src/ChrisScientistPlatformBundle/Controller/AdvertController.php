@@ -4,6 +4,7 @@ namespace ChrisScientistPlatformBundle\Controller ;
 
 use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;  // Penser à inclure cette classe et à faire hériter notre contrôleur !
+use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette classe !
 
 class AdvertController extends Controller
 {
@@ -13,11 +14,15 @@ class AdvertController extends Controller
         return new Response($content) ;
     }
     
-    public function viewAction($id)
+    public function viewAction($id, Request $request)
     {
+        // Récupérer le paramètre "tag" dans l'URL
+        $tag = $request->query->get('tag') ;
+        
         // Renvoyer une réponse rapide
         // en récupérant un paramètre de la route ($id)
-        return new Response("Affichage de l'annonce dont l'ID est &laquo; ".$id." &raquo;.") ;
+        return new Response("Affichage de l'annonce dont l'ID est &laquo; ".$id." &raquo;. "
+                . "Le paramètre &laquo; tag &raquo; vaut &laquo; ".$tag." &raquo;.") ;
     }
     
     public function addAction()
