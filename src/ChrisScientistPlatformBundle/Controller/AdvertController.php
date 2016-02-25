@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;  // Penser à inclure cette classe et à faire hériter notre contrôleur !
 use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette classe !
 use Symfony\Component\HttpFoundation\RedirectResponse ; // Penser à inclure cette classe !
+use Symfony\Component\HttpFoundation\JsonResponse ; // Penser à inclure cette classe !
 
 class AdvertController extends Controller
 {
@@ -17,10 +18,8 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Changer le Content-type de la réponse
-        $response = new Response(json_encode(array('id' => $id))) ;
-        $response->headers->set('Content-Type', 'application/json') ;
-        return $response ;
+        // Changer le Content-type de la réponse : méthode raccourcie
+        return new JsonResponse(array('id' => $id)) ;
     }
     
     public function addAction()
