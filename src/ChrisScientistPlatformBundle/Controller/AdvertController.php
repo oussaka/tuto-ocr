@@ -5,8 +5,6 @@ namespace ChrisScientistPlatformBundle\Controller ;
 use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;  // Penser à inclure cette classe et à faire hériter notre contrôleur !
 use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette classe !
-use Symfony\Component\HttpFoundation\RedirectResponse ; // Penser à inclure cette classe !
-use Symfony\Component\HttpFoundation\JsonResponse ; // Penser à inclure cette classe !
 
 class AdvertController extends Controller
 {
@@ -18,8 +16,11 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Changer le Content-type de la réponse : méthode raccourcie
-        return new JsonResponse(array('id' => $id)) ;
+        // Manipuler la session
+        $session = $request->getSession() ;
+        $userId = $session->get('user_id') ;    // Récupérer le valeur de la variable 'user_id'
+        $session->set('user_id', 33) ;
+        return new Response("La variable &laquo; user_id &raquo; (de la session) valait &laquo; ".$userId." &raquo;.") ;
     }
     
     public function addAction()
