@@ -6,7 +6,16 @@
         <title>Bienvenue sur ma première "page Twig"</title>
     </head>
     <body>
-        <h1>Hello {{ name }} !</h1>
+        <h1>Hello !</h1>
+        
+        <h2>Génération d'URL dans Twig</h2>
+        
+        <dl>
+            <dt>URL relative<dt>
+            <dd>{{ path('chris_scientist_platform_view', {'id': 33}) }}</dd>
+            <dt>URL absolue<dt>
+            <dd>{{ url('chris_scientist_platform_view', {'id': 33}) }}</dd>
+        </dl>
         
         <p>
             Page d'accueil réalisé par chris-scientist.

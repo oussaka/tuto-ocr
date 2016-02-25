@@ -9,11 +9,8 @@ class AdvertController extends Controller
 {
     public function indexAction()
     {
-        // Générer une URL absolue depuis le contrôleur
-        // Via la méthode raccourcie generateUrl, que l'on peut utilisé grâce à l'héritage
-        // de la classe Symfony\Bundle\FrameworkBundle\Controller\Controller.
-        $url = $this->generateUrl('chris_scientist_platform_view', array('id' => 33), true) ;
-        return new Response("L'URL de l'annonce d'ID 33 est : ".$url) ;
+        $content = $this->get('templating')->render('ChrisScientistPlatformBundle:Advert:index.html.twig') ;
+        return new Response($content) ;
     }
     
     public function viewAction($id)
