@@ -1,18 +1,35 @@
-chris_scientist_platform_homepage:
-    path:     /hello-world
-    defaults: { _controller: ChrisScientistPlatformBundle:Advert:index }
+# Ajouter annonce
+chris_scientist_platform_add:
+    path:     /add
+    defaults: { _controller: ChrisScientistPlatformBundle:Advert:add }
 
+# Accueil
 chris_scientist_platform_home:
-    path:     /platform
-    defaults: { _controller: ChrisScientistPlatformBundle:Advert:index }
+    path:     /{page}
+    defaults:
+        _controller: ChrisScientistPlatformBundle:Advert:index
+        page: 1
+    requirements:
+        id: \d*
+
+# Consulter annonce
+chris_scientist_platform_view:
+    path:     /advert/{id}
+    defaults: { _controller: ChrisScientistPlatformBundle:Advert:view }
     requirements:
         id: \d+
 
-chris_scientist_platform_view:
-    path:     /platform/advert/view/{id}
-    defaults: { _controller: ChrisScientistPlatformBundle:Advert:view }
+# Modifier annonce
+chris_scientist_platform_edit:
+    path:     /edit/{id}
+    defaults: { _controller: ChrisScientistPlatformBundle:Advert:edit }
+    requirements:
+        id: \d+
 
-chris_scientist_platform_add:
-    path:     /platform/add
-    defaults: { _controller: ChrisScientistPlatformBundle:Advert:add }
+# Consulter annonce
+chris_scientist_platform_delete:
+    path:     /delete/{id}
+    defaults: { _controller: ChrisScientistPlatformBundle:Advert:delete }
+    requirements:
+        id: \d+
 

@@ -1,3 +1,5 @@
+# Inclure les routes du bundle ChrisScientistPlatformBundle
+# et les préfixées par /platform
 chris_scientist_platform:
     resource: "@ChrisScientistPlatformBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /platform
