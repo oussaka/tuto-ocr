@@ -16,8 +16,8 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        // Méthode raccourcie (1) pour utiliser une vue Twig
-        return $this->get('templating')->renderResponse('ChrisScientistPlatformBundle:Advert:view.html.twig', array('id'=>$id)) ;
+        // Méthode raccourcie (2) pour utiliser une vue Twig
+        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', array('id'=>$id)) ;
     }
     
     public function addAction()
