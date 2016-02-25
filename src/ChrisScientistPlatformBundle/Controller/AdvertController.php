@@ -10,7 +10,8 @@ class AdvertController extends Controller
     public function indexAction()
     {
         // Afficher un page Twig depuis un contrôleur
-        $content = $this->get('templating')->render('ChrisScientistPlatformBundle:Advert:index.html.twig') ;
+        // avec un passage de paramètre (du contrôleur vers la vue)
+        $content = $this->get('templating')->render('ChrisScientistPlatformBundle:Advert:index.html.twig', array('name' => 'Christopher')) ;
         return new Response($content) ;
     }
 }
