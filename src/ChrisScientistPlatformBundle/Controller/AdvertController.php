@@ -9,10 +9,9 @@ class AdvertController extends Controller
 {
     public function indexAction()
     {
-        // Afficher un page Twig depuis un contrôleur
-        // avec un passage de paramètre (du contrôleur vers la vue)
-        $content = $this->get('templating')->render('ChrisScientistPlatformBundle:Advert:index.html.twig', array('name' => 'Christopher')) ;
-        return new Response($content) ;
+        // Générer une URL relative depuis le contrôleur
+        $url = $this->get('router')->generate('chris_scientist_platform_view', array('id' => 33)) ;
+        return new Response("L'URL de l'annonce d'ID 33 est : ".$url) ;
     }
     
     public function viewAction($id)
