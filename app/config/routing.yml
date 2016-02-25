@@ -1,3 +1,7 @@
+chris_scientist_platform:
+    resource: "@ChrisScientistPlatformBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

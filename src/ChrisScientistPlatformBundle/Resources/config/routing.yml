@@ -1,0 +1,3 @@
+chris_scientist_platform_homepage:
+    path:     /
+    defaults: { _controller: ChrisScientistPlatformBundle:Default:index }
