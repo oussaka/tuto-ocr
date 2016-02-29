@@ -24,9 +24,12 @@ class AdvertController extends Controller
         // Récupérer une entité grâce au repository
         $doctrine = $this->getDoctrine() ;
         $em = $doctrine->getManager() ;
-        $repository = $em->getRepository("ChrisScientistPlatformBundle:Advert") ;
         
-        $advert = $repository->find($id) ;
+        // Remarque : on peut raccourcir les deux lignes commentées qui suivent par 
+        // la troisième ligne.
+        //$repository = $em->getRepository("ChrisScientistPlatformBundle:Advert") ;
+        //$advert = $repository->find($id) ;
+        $advert = $em->find("ChrisScientistPlatformBundle:Advert", $id) ;
         
         if( is_null($advert) )
         {
