@@ -21,7 +21,19 @@ class AdvertController extends Controller
     
     public function viewAction($id, Request $request)
     {
-        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', array('id'=>$id)) ;
+        // Récupérer une entité grâce au repository
+        $doctrine = $this->getDoctrine() ;
+        $em = $doctrine->getManager() ;
+        $repository = $em->getRepository("ChrisScientistPlatformBundle:Advert") ;
+        
+        $advert = $repository->find($id) ;
+        
+        if( is_null($advert) )
+        {
+            throw new NotFoundHttpException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
+        }
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', array('advert'=>$advert)) ;
     }
     
     public function addAction(Request $request)
