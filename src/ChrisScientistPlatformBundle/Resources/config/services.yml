@@ -1,4 +1,6 @@
 services:
+    chris_scientist_platform.antispam:
+        class: ChrisScientistPlatformBundle\Antispam\CSAntispam
 #    chris_scientist_platform.example:
 #        class: ChrisScientistPlatformBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]

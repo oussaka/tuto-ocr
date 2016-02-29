@@ -25,6 +25,14 @@ class AdvertController extends Controller
     
     public function addAction(Request $request)
     {
+        // Utilisation d'un service (fait maison)
+        $antispam = $this->container->get('chris_scientist_platform.antispam') ;
+        $text = 'abcdefghijklmn' ;
+        if( $antispam->isSpam($text) )
+        {
+            throw new \Exception("Nous avons détecté votre message comme étant un spam, processus abandonné !") ;
+        }
+        
         if($request->isMethod('POST'))
         {
             $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée') ;
