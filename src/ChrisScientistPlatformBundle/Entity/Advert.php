@@ -55,8 +55,13 @@ class Advert
      * 
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published = true ;
+    private $published ;
 
+    public function __construct()
+    {
+        $this->published = true ;
+        $this->date = new \DateTime() ;
+    }    
 
     /**
      * Get id
