@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response ;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller ;  // Penser à inclure cette classe et à faire hériter notre contrôleur !
 use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette classe !
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException ; // Penser à inclure cette classe !
+use ChrisScientistPlatformBundle\Entity\Advert ;
 
 class AdvertController extends Controller
 {
@@ -25,13 +26,22 @@ class AdvertController extends Controller
     
     public function addAction(Request $request)
     {
-        // Utilisation d'un service (fait maison)
-        $antispam = $this->container->get('chris_scientist_platform.antispam') ;
-        $text = 'abcdefghijklmn' ;
-        if( $antispam->isSpam($text) )
-        {
-            throw new \Exception("Nous avons détecté votre message comme étant un spam, processus abandonné !") ;
-        }
+        // Gérer une entité avec l'EntityManager
+        $advert = new Advert() ;
+        $advert->setTitle("Recherche développeur Symfony 2") ;
+        $advert->setAuthor("Start-up") ;
+        $advert->setContent("Nous recherchons un développeur Symfony2 débutant...") ;
+        
+        //$doctrine = $this->get('doctrine') ;
+        // Remarque : la ligne précédente est équivalente à la suivante
+        // la nouvelle ligne permet d'obtenir l'autocomplétion.
+        $doctrine = $this->getDoctrine() ;
+        
+        $em = $doctrine->getManager() ;
+        //$em = $this->get('doctrine.orm.entity_manager') ; // Ligne équivalente à la précédente
+        
+        $em->persist($advert) ;
+        $em->flush() ;
         
         if($request->isMethod('POST'))
         {
