@@ -1,6 +1,7 @@
 services:
     chris_scientist_platform.antispam:
         class: ChrisScientistPlatformBundle\Antispam\CSAntispam
+        arguments: [@mailer, %locale%, 10]
 #    chris_scientist_platform.example:
 #        class: ChrisScientistPlatformBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
