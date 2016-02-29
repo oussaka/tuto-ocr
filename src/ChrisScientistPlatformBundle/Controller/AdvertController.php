@@ -28,19 +28,21 @@ class AdvertController extends Controller
     {
         // Gérer une entité avec l'EntityManager
         $advert = new Advert() ;
-        $advert->setTitle("Recherche développeur Symfony 2") ;
-        $advert->setAuthor("Start-up") ;
-        $advert->setContent("Nous recherchons un développeur Symfony2 débutant...") ;
+        $advert->setTitle("Recherche développeur iOS") ;
+        $advert->setAuthor("Start-up 2") ;
+        $advert->setContent("Nous recherchons un développeur iOS...") ;
         
-        //$doctrine = $this->get('doctrine') ;
-        // Remarque : la ligne précédente est équivalente à la suivante
-        // la nouvelle ligne permet d'obtenir l'autocomplétion.
         $doctrine = $this->getDoctrine() ;
-        
         $em = $doctrine->getManager() ;
-        //$em = $this->get('doctrine.orm.entity_manager') ; // Ligne équivalente à la précédente
         
         $em->persist($advert) ;
+        
+        // Remarque : l'objet '$advert2' n'a pas besoin d'être persister, puisque nous
+        // récupérons l'objet via Doctrine, de cette manière il sait déjà qu'il doit
+        // gérer l'entité.
+        $advert2 = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find(11) ;
+        $advert2->setDate(new \DateTime) ;
+        
         $em->flush() ;
         
         if($request->isMethod('POST'))
