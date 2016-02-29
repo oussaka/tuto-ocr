@@ -1,19 +1,17 @@
-{# src/ChrisScientistPlatformBundle/Ressources/Advert/add.html.twig #}
+{# src/ChrisScientistPlatformBundle/Ressources/Advert/edit.html.twig #}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Modifer annonce</title>
-    </head>
-    <body>
-        <h1>Platforme T</h1>
-        
-        <p>
-            Formulaire de modification en construction...
-        </p>
-        
-        <p>
-            <a href="{{ url('chris_scientist_platform_home') }}" >Retour à l'accueil</a> | Page réalisée par {{ webmaster }}.
-        </p>
-    </body>
-</html>
+{% extends "ChrisScientistPlatformBundle::layout_bundle.html.twig" %}
+
+{% block title %}
+    Modifer annonce - {{ parent() }}
+{% endblock %}
+
+{% block chris_scientist_platform_body %}
+    <p>
+        Formulaire de modification en construction...
+    </p>
+{% endblock %}
+
+{% block footer %}
+    <a href="{{ url('chris_scientist_platform_home') }}" >Retour à l'accueil</a> | {{ parent() }}
+{% endblock %}

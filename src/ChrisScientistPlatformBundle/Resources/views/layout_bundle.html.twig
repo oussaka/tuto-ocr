@@ -1,0 +1,14 @@
+{# src/ChrisScientistPlatformBundle/Resources/views/layout_bundle.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    Annonce - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h2>Annonce</h2>
+    
+    {% block chris_scientist_platform_body %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Plateforme T{% endblock %}</title>
+    </head>
+    <body>
+        <h1>Plateforme T</h1>
+        
+        {% block body %}
+        {% endblock %}
+        
+        <p>
+            {% block footer %}
+                Page réalisée par {{ webmaster }}.
+            {% endblock %}
+        </p>
+    </body>
+</html>

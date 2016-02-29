@@ -1,28 +1,28 @@
-{# src/ChrisScientistPlatformBundle/Ressources/Advert/index.html.twig #}
+{# src/ChrisScientistPlatformBundle/Ressources/Advert/view.html.twig #}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Consulter annonce</title>
-    </head>
-    <body>
-        <h1>Annonce #{{ id }}</h1>
+{% extends "ChrisScientistPlatformBundle::layout_bundle.html.twig" %}
+
+{% block title %}
+    Consulter annonce - {{ parent() }}
+{% endblock %}
+
+{% block chris_scientist_platform_body %}
+    <h2>Annonce #{{ id }}</h2>
         
-        <h2>Afficher des messages flash (contenus en session)</h2>
-        
-        <ul>
-            <li><a href="{{ url('chris_scientist_platform_edit', {'id':id}) }}" >Modifier</a></li>
-            <li><a href="{{ url('chris_scientist_platform_delete', {'id':id}) }}" >Supprimer</a></li>
-        </ul>
-        
-        <p>
-            {% for message in app.session.flashbag.get('info') %}
-                <p>Message flash : {{ message }}</p>
-            {% endfor %}
-        </p>
-        
-        <p>
-            <a href="{{ url('chris_scientist_platform_home') }}" >Retour à l'accueil</a> | Page réalisée par {{ webmaster }}.
-        </p>
-    </body>
-</html>
+    <h3>Afficher des messages flash (contenus en session)</h3>
+
+    <ul>
+        <li><a href="{{ url('chris_scientist_platform_edit', {'id':id}) }}" >Modifier</a></li>
+        <li><a href="{{ url('chris_scientist_platform_delete', {'id':id}) }}" >Supprimer</a></li>
+    </ul>
+
+    <p>
+        {% for message in app.session.flashbag.get('info') %}
+            <p>Message flash : {{ message }}</p>
+        {% endfor %}
+    </p>
+{% endblock %}
+
+{% block footer %}
+    <a href="{{ url('chris_scientist_platform_home') }}" >Retour à l'accueil</a> | {{ parent() }}
+{% endblock %}

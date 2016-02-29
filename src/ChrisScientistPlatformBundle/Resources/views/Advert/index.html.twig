@@ -1,28 +1,26 @@
 {# src/ChrisScientistPlatformBundle/Ressources/Advert/index.html.twig #}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bienvenue sur ma première "page Twig"</title>
-    </head>
-    <body>
-        <h1>Hello !</h1>
-        
-        <ul>
-            <li><a href="{{ url('chris_scientist_platform_add') }}" >Créer une annonce</a></li>
-        </ul>
-        
-        <h2>Génération d'URL dans Twig</h2>
-        
-        <dl>
-            <dt>URL relative<dt>
-            <dd>{{ path('chris_scientist_platform_view', {'id': 33}) }}</dd>
-            <dt>URL absolue<dt>
-            <dd>{{ url('chris_scientist_platform_view', {'id': 33}) }}</dd>
-        </dl>
-        
-        <p>
-            Page d'accueil réalisée par {{ webmaster }}.
-        </p>
-    </body>
-</html>
+{% extends "ChrisScientistPlatformBundle::layout_bundle.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block chris_scientist_platform_body %}
+    <ul>
+        <li><a href="{{ url('chris_scientist_platform_add') }}" >Créer une annonce</a></li>
+    </ul>
+
+    <h2>Génération d'URL dans Twig</h2>
+
+    <dl>
+        <dt>URL relative<dt>
+        <dd>{{ path('chris_scientist_platform_view', {'id': 33}) }}</dd>
+        <dt>URL absolue<dt>
+        <dd>
+            <a href="{{ url('chris_scientist_platform_view', {'id': 33}) }}" >
+                {{ url('chris_scientist_platform_view', {'id': 33}) }}
+            </a>
+        </dd>
+    </dl>
+{% endblock %}
