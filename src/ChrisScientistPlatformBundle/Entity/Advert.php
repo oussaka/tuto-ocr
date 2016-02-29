@@ -48,6 +48,14 @@ class Advert
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+    
+    /**
+     *
+     * @var type boolean
+     * 
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published = true ;
 
 
     /**
@@ -150,5 +158,28 @@ class Advert
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Advert
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 }
