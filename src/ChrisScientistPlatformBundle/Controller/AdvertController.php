@@ -41,24 +41,24 @@ class AdvertController extends Controller
     
     public function addAction(Request $request)
     {
-        // Gérer une entité avec l'EntityManager
-        $advert = new Advert() ;
-        $advert->setTitle("Recherche développeur iOS") ;
-        $advert->setAuthor("Start-up 2") ;
-        $advert->setContent("Nous recherchons un développeur iOS...") ;
-        
-        $doctrine = $this->getDoctrine() ;
-        $em = $doctrine->getManager() ;
-        
-        $em->persist($advert) ;
-        
-        // Remarque : l'objet '$advert2' n'a pas besoin d'être persister, puisque nous
-        // récupérons l'objet via Doctrine, de cette manière il sait déjà qu'il doit
-        // gérer l'entité.
-        $advert2 = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find(11) ;
-        $advert2->setDate(new \DateTime) ;
-        
-        $em->flush() ;
+//        // Gérer une entité avec l'EntityManager
+//        $advert = new Advert() ;
+//        $advert->setTitle("Recherche développeur iOS") ;
+//        $advert->setAuthor("Start-up 2") ;
+//        $advert->setContent("Nous recherchons un développeur iOS...") ;
+//        
+//        $doctrine = $this->getDoctrine() ;
+//        $em = $doctrine->getManager() ;
+//        
+//        $em->persist($advert) ;
+//        
+//        // Remarque : l'objet '$advert2' n'a pas besoin d'être persister, puisque nous
+//        // récupérons l'objet via Doctrine, de cette manière il sait déjà qu'il doit
+//        // gérer l'entité.
+////        $advert2 = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find(11) ;
+////        $advert2->setDate(new \DateTime) ;
+//        
+//        $em->flush() ;
         
         if($request->isMethod('POST'))
         {

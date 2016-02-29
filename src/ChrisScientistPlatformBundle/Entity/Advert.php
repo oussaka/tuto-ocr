@@ -3,6 +3,7 @@
 namespace ChrisScientistPlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection ;
 
 /**
  * Advert
@@ -56,11 +57,56 @@ class Advert
      * @ORM\Column(name="published", type="boolean")
      */
     private $published ;
+    
+    /**
+     *
+     * @var type \DateTime
+     * 
+     * @ORM\Column(name="updatedAt", type="datetime")
+     */
+    private $updatedAt ;
+    
+    /**
+     *
+     * @var type int
+     * 
+     * @ORM\Column(name="nbApplications", type="integer")
+     */
+    private $nbApplications ;
+    
+    /**
+     *
+     * @var type ChrisScientistPlatformBundle\Entity\Image
+     * 
+     * @ORM\OneToOne(targetEntity="ChrisScientistPlatformBundle\Entity\Image", 
+     *              cascade={"persist", "remove"})
+     */
+    private $image ;
+    
+    /**
+     *
+     * @var type ChrisScientistPlatformBundle\Entity\Application
+     * 
+     * @ORM\OneToMany(targetEntity="ChrisScientistPlatformBundle\Entity\Application", 
+     *               mappedBy="advert")
+     */
+    private $applications ;
+    
+    /**
+     *
+     * @var type ChrisScientistPlatformBundle\Entity\Category
+     * 
+     * @ORM\ManyToMany(targetEntity="ChrisScientistPlatformBundle\Entity\Category", 
+     *              cascade={"persist"})
+     */
+    private $categories ;
 
     public function __construct()
     {
         $this->published = true ;
         $this->date = new \DateTime() ;
+        $this->categories = new ArrayCollection() ;
+        $this->applications = new ArrayCollection() ;
     }    
 
     /**
@@ -186,5 +232,140 @@ class Advert
     public function getPublished()
     {
         return $this->published;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Advert
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set nbApplications
+     *
+     * @param integer $nbApplications
+     * @return Advert
+     */
+    public function setNbApplications($nbApplications)
+    {
+        $this->nbApplications = $nbApplications;
+
+        return $this;
+    }
+
+    /**
+     * Get nbApplications
+     *
+     * @return integer 
+     */
+    public function getNbApplications()
+    {
+        return $this->nbApplications;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \ChrisScientistPlatformBundle\Entity\Image $image
+     * @return Advert
+     */
+    public function setImage(\ChrisScientistPlatformBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \ChrisScientistPlatformBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Add applications
+     *
+     * @param \ChrisScientistPlatformBundle\Entity\Application $applications
+     * @return Advert
+     */
+    public function addApplication(\ChrisScientistPlatformBundle\Entity\Application $applications)
+    {
+        $this->applications[] = $applications;
+
+        return $this;
+    }
+
+    /**
+     * Remove applications
+     *
+     * @param \ChrisScientistPlatformBundle\Entity\Application $applications
+     */
+    public function removeApplication(\ChrisScientistPlatformBundle\Entity\Application $applications)
+    {
+        $this->applications->removeElement($applications);
+    }
+
+    /**
+     * Get applications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \ChrisScientistPlatformBundle\Entity\Category $categories
+     * @return Advert
+     */
+    public function addCategory(\ChrisScientistPlatformBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \ChrisScientistPlatformBundle\Entity\Category $categories
+     */
+    public function removeCategory(\ChrisScientistPlatformBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
