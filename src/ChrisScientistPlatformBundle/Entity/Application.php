@@ -154,4 +154,20 @@ class Application
     {
         return $this->advert;
     }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function increase()
+    {
+        $this->getAdvert()->increaseApplication() ;
+    }
+    
+    /**
+     * @ORM\PreRemove
+     */
+    public function decrease()
+    {
+        $this->getAdvert()->drecreaseApplication() ;
+    }
 }

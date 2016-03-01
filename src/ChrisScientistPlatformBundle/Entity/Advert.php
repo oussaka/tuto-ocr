@@ -107,6 +107,7 @@ class Advert
         $this->date = new \DateTime() ;
         $this->categories = new ArrayCollection() ;
         $this->applications = new ArrayCollection() ;
+        $this->nbApplications = 0 ;
     }    
 
     /**
@@ -256,6 +257,14 @@ class Advert
     {
         return $this->updatedAt;
     }
+    
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdatedAt(new \DateTime()) ;
+    }
 
     /**
      * Set nbApplications
@@ -278,6 +287,16 @@ class Advert
     public function getNbApplications()
     {
         return $this->nbApplications;
+    }
+    
+    public function increaseApplication()
+    {
+        $this->nbApplications++ ;
+    }
+    
+    public function decreaseApplication()
+    {
+        $this->nbApplications-- ;
     }
 
     /**
