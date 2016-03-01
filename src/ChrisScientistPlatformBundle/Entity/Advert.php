@@ -4,6 +4,7 @@ namespace ChrisScientistPlatformBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection ;
+use Gedmo\Mapping\Annotation as Gedmo ;
 
 /**
  * Advert
@@ -62,7 +63,7 @@ class Advert
      *
      * @var type \DateTime
      * 
-     * @ORM\Column(name="updatedAt", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt ;
     
@@ -70,7 +71,7 @@ class Advert
      *
      * @var type int
      * 
-     * @ORM\Column(name="nbApplications", type="integer")
+     * @ORM\Column(name="nb_applications", type="integer")
      */
     private $nbApplications ;
     
@@ -100,6 +101,12 @@ class Advert
      *              cascade={"persist"})
      */
     private $categories ;
+    
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slugTitle ;
 
     public function __construct()
     {
@@ -386,5 +393,28 @@ class Advert
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set slugTitle
+     *
+     * @param string $slugTitle
+     * @return Advert
+     */
+    public function setSlugTitle($slugTitle)
+    {
+        $this->slugTitle = $slugTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get slugTitle
+     *
+     * @return string 
+     */
+    public function getSlugTitle()
+    {
+        return $this->slugTitle;
     }
 }

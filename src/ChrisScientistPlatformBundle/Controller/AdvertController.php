@@ -41,6 +41,20 @@ class AdvertController extends Controller
     
     public function addAction(Request $request)
     {
+        // Tester l'extension Slugglable
+        $advert = new Advert() ;
+        $advert->setTitle("Recherche développeur Symfony 2") ;
+        $advert->setContent("Nous recherchons...") ;
+        $advert->setAuthor("mon_adresse_mail@youhou.com") ;
+        $em = $this->getDoctrine()->getManager() ;
+        $em->persist($advert) ;
+        $em->flush() ;
+        
+        if(true)
+        {
+            return new Response("Slug généré : " . $advert->getSlugTitle()) ;
+        }
+        
 //        // Gérer une entité avec l'EntityManager
 //        $advert = new Advert() ;
 //        $advert->setTitle("Recherche développeur iOS") ;
