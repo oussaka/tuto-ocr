@@ -4,7 +4,7 @@ services:
         arguments: [@mailer, %locale%, 10]
     chris_scientist_platform.doctrine.notification:
         class: ChrisScientistPlatformBundle\DoctrineListener\ApplicationNotification
-        arguments: [@mailer, %fromEmail%]
+        arguments: [@mailer, %from_email%]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 #    chris_scientist_platform.example:
