@@ -3,6 +3,7 @@
 namespace ChrisScientistPlatformBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator ;
 
 /**
  * AdvertRepository
@@ -12,6 +13,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdvertRepository extends EntityRepository
 {
+    //
+    // Obtenir toutes les annonces triées selon la date (de création).
+    //
+    public function getAdverts($aPage, $aNbPerPage=10)
+    {
+        $aliasAdvert = 'a' ;
+        $aliasImage = 'i' ;
+        $aliasCategories = 'c' ;
+        
+        $query = $this->createQueryBuilder($aliasAdvert)
+                // jointure pour l'image
+                ->leftJoin($aliasAdvert . '.image', $aliasImage)
+                ->addSelect($aliasImage)
+                // jointure pour les catégories
+                ->leftJoin($aliasAdvert . '.categories', $aliasCategories)
+                ->addSelect($aliasCategories)
+                ->orderBy($aliasAdvert . '.date', 'DESC')
+                ->getQuery() ;
+        
+        $query->setFirstResult(($aPage - 1) * $aNbPerPage)
+                ->setMaxResults($aNbPerPage) ;
+        
+        return new Paginator($query, true) ;
+    }
+    
     //
     // Obtenir une annonce à partir d'un identifiant.
     //

@@ -11,16 +11,42 @@
         <li><a href="{{ url('chris_scientist_platform_add') }}" >Créer une annonce</a></li>
     </ul>
 
-    <h2>Génération d'URL dans Twig</h2>
-
-    <dl>
-        <dt>URL relative<dt>
-        <dd>{{ path('chris_scientist_platform_view', {'id': 33}) }}</dd>
-        <dt>URL absolue<dt>
-        <dd>
-            <a href="{{ url('chris_scientist_platform_view', {'id': 33}) }}" >
-                {{ url('chris_scientist_platform_view', {'id': 33}) }}
-            </a>
-        </dd>
-    </dl>
+    <h2>Liste des annonces</h2>
+    
+    {% for advert in listAdverts %}
+        <div>
+            <h3>
+                <a href="{{ url('chris_scientist_platform_view', {'id': advert.id}) }}" >
+                    {{ advert.title }}
+                </a>
+                <div>
+                    Ajoutée par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}
+                    {% if not ( advert.updatedAt is null ) %}, modifiée le {{ advert.updatedAt|date('d/m/Y') }}{% endif %}
+                </div>
+                <div>
+                    {% for category in advert.categories %}
+                        {% if not loop.first %}
+                            ,
+                        {% endif %}
+                        {{ category.name }}
+                    {% else %}
+                        Pas de catégorie pour cette annonce.
+                    {% endfor %}
+                </div>
+            </h3>
+            <p>
+                {% if not ( advert.image is null ) %}
+                    <img src="{{ advert.image.url }}" 
+                         alt="{{ advert.image.alt }}" />
+                {% endif %}
+                {{ advert.content }}
+            </p>
+        </div>
+    {% else %}
+        <p>Aucune annonce n'est enregistrée.</p>
+    {% endfor %}
+    
+    {% for itPage in range(1, nbPages) %}
+        <a href="{{ url('chris_scientist_platform_home', {'page': itPage}) }}" >{{ itPage }}</a>
+    {% endfor %}
 {% endblock %}

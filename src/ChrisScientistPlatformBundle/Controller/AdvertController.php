@@ -13,10 +13,27 @@ class AdvertController extends Controller
     public function indexAction($page)
     {
         if($page < 1) {
-            throw new NotFoundHttpException("Page &laquo; ".$page." &raquo; inexistante.") ;
+            throw new NotFoundHttpException("Page '".$page."' inexistante.") ;
         }
         
-        return $this->render('ChrisScientistPlatformBundle:Advert:index.html.twig') ;
+        $nbPerPage = 3 ;
+        
+        $listAdverts = $this->getDoctrine()
+                ->getManager()
+                ->getRepository("ChrisScientistPlatformBundle:Advert")
+                ->getAdverts($page, $nbPerPage) ;
+        
+        $nbPages = ceil(count($listAdverts)/$nbPerPage) ;
+        
+        if($page > $nbPages)
+        {
+            throw $this->createNotFoundException("Page '".$page."' inexistante.") ;
+        }
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:index.html.twig',
+                array('listAdverts' => $listAdverts, 
+                    'nbPages' => $nbPages, 
+                    'page' => $page)) ;
     }
     
     public function viewAction($id, Request $request)
@@ -24,11 +41,6 @@ class AdvertController extends Controller
         // Récupérer une entité grâce au repository
         $doctrine = $this->getDoctrine() ;
         $em = $doctrine->getManager() ;
-        
-        // Remarque : on peut raccourcir les deux lignes commentées qui suivent par 
-        // la troisième ligne.
-        //$repository = $em->getRepository("ChrisScientistPlatformBundle:Advert") ;
-        //$advert = $repository->find($id) ;
         $advert = $em->find("ChrisScientistPlatformBundle:Advert", $id) ;
         
         if( is_null($advert) )
@@ -36,7 +48,10 @@ class AdvertController extends Controller
             throw new NotFoundHttpException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
         }
         
-        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', array('advert'=>$advert)) ;
+        $listAdvertSkills = $em->getRepository("ChrisScientistPlatformBundle:AdvertSkill")->findByAdvert($advert) ;
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:view.html.twig', 
+                array('advert'=>$advert, 'listAdvertSkills' => $listAdvertSkills)) ;
     }
     
     public function addAction(Request $request)
@@ -86,18 +101,35 @@ class AdvertController extends Controller
     
     public function editAction($id, Request $request)
     {
-        if($request->isMethod('POST'))
+        $em = $this->getDoctrine()->getManager() ;
+        $advert = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find($id) ;
+        
+        if( is_null($advert) )
         {
-            $request->getSession()->getFlashBag()->add('info', 'Annonce bien modifiée') ;
-            
-            return $this->redirectToRoute('chris_scientist_platform_view', array('id' => 33)) ;
+            throw $this->createNotFoundException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
         }
         
-        return $this->render('ChrisScientistPlatformBundle:Advert:edit.html.twig') ;
+        return $this->render('ChrisScientistPlatformBundle:Advert:edit.html.twig', 
+                array('advert' => $advert)) ;
     }
     
-    public function deleteAction($id)
+    public function deleteAction($id, Request $request)
     {
-        return $this->render('ChrisScientistPlatformBundle:Advert:delete.html.twig') ;
+        $em = $this->getDoctrine()->getManager() ;
+        $advert = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find($id) ;
+        
+        if( is_null($advert) )
+        {
+            throw $this->createNotFoundException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
+        }
+        
+        if($request->isMethod("POST"))
+        {
+            $request->getSession()->getFlashBag()->add("info", "Annonce bien supprimée.") ;
+            return $this->redirect($this->generateUrl('chris_scientist_platform_home')) ;
+        }
+        
+        return $this->render('ChrisScientistPlatformBundle:Advert:delete.html.twig', 
+                array('advert' => $advert)) ;
     }
 }
