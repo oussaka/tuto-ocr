@@ -12,4 +12,38 @@ use Doctrine\ORM\EntityRepository;
  */
 class AdvertRepository extends EntityRepository
 {
+    //
+    // Obtenir une annonce à partir d'un identifiant.
+    //
+    public function findAnAdvert($aId)
+    {
+        $aliasAdvert = 'a' ;
+        
+        $qb = $this->createQueryBuilder()
+                ->select($aliasAdvert)
+                ->from($this->_entityName, $aliasAdvert)
+                ->where($aliasAdvert . '.id = :id')
+                ->setParameter('id', $aId) ;
+        
+        return $qb->getQuery()->getOneOrNullResult() ;
+    }
+    
+    //
+    // Obtenir les M annonces à partir de la N ieme,
+    // avec M la limite d'annonces par pages (10 par défaut)
+    // et N l'indice de la première annonce (0 par défaut).
+    //
+    public function findAdverts($aLimit=10, $anOffset=0)
+    {
+        $aliasAdvert = 'a' ;
+        
+        $qb = $this->createQueryBuilder()
+                ->select($aliasAdvert)
+                ->from($this->_entityName, $aliasAdvert)
+                ->orderBy($aliasAdvert . '.date', 'ASC')
+                ->setFirstResult($anOffset)
+                ->setMaxResults($aLimit) ;
+        
+        return $qb->getQuery()->getResult() ;
+    }
 }
