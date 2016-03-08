@@ -10,10 +10,8 @@
     <p>
         Formulaire de création en construction...
     </p>
-
-    <p>
-        <a href="{{ url('chris_scientist_platform_view', {'id':33}) }}" >Voir l'annonce 33</a>
-    </p>
+    
+    {{ include("ChrisScientistPlatformBundle:Advert:form.html.twig") }}
 {% endblock %}
 
 {% block footer %}

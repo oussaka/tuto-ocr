@@ -56,61 +56,70 @@ class AdvertController extends Controller
     
     public function addAction(Request $request)
     {
-        // Tester l'extension Slugglable
+        // Tester la création d'un formulaire
         $advert = new Advert() ;
-        $advert->setTitle("Recherche développeur Symfony 2") ;
-        $advert->setContent("Nous recherchons...") ;
-        $advert->setAuthor("mon_adresse_mail@youhou.com") ;
-        $em = $this->getDoctrine()->getManager() ;
-        $em->persist($advert) ;
-        $em->flush() ;
+        // Création du FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $advert) ;
+        // Ajout des champs au formulaire
+        $formBuilder->add('title', 'text')
+                ->add('date', 'date')
+                ->add('content', 'textarea')
+                ->add('author', 'text')
+                ->add('published', 'checkbox', array('required'=>false))        # avec l'option required définit à false, le champ est ainsi facultatif
+                ->add('save', 'submit');
+        // Génération du formulaire
+        $form = $formBuilder->getForm() ;
+        // Lier le formulaire et la requête : $advert contient ainsi les valeurs saisies par l'utilisateur
+        $form->handleRequest($request) ;
         
-        if(true)
+        if($form->isValid())
         {
-            return new Response("Slug généré : " . $advert->getSlugTitle()) ;
-        }
-        
-//        // Gérer une entité avec l'EntityManager
-//        $advert = new Advert() ;
-//        $advert->setTitle("Recherche développeur iOS") ;
-//        $advert->setAuthor("Start-up 2") ;
-//        $advert->setContent("Nous recherchons un développeur iOS...") ;
-//        
-//        $doctrine = $this->getDoctrine() ;
-//        $em = $doctrine->getManager() ;
-//        
-//        $em->persist($advert) ;
-//        
-//        // Remarque : l'objet '$advert2' n'a pas besoin d'être persister, puisque nous
-//        // récupérons l'objet via Doctrine, de cette manière il sait déjà qu'il doit
-//        // gérer l'entité.
-////        $advert2 = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find(11) ;
-////        $advert2->setDate(new \DateTime) ;
-//        
-//        $em->flush() ;
-        
-        if($request->isMethod('POST'))
-        {
-            $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée') ;
+            $em = $this->getDoctrine()->getManager() ;
+            $em->persist($advert) ;
+            $em->flush() ;
             
-            return $this->redirectToRoute('chris_scientist_platform_view', array('id' => 33)) ;
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.') ;
+            
+            return $this->redirect($this->generateUrl('chris_scientist_platform_view', array( 'id' => $advert->getId() ))) ;
         }
         
-        return $this->render('ChrisScientistPlatformBundle:Advert:add.html.twig') ;
+        return $this->render('ChrisScientistPlatformBundle:Advert:add.html.twig',
+                array('form' => $form->createView())) ;
     }
     
     public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager() ;
-        $advert = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find($id) ;
         
-        if( is_null($advert) )
+        // Tester la création d'un formulaire pour l'édition d'une entité
+        $advert = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find($id) ;
+        // Création du FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $advert) ;
+        // Ajout des champs au formulaire
+        $formBuilder->add('title', 'text')
+                ->add('date', 'date')
+                ->add('content', 'textarea')
+                ->add('author', 'text')
+                ->add('published', 'checkbox', array('required'=>false))        # avec l'option required définit à false, le champ est ainsi facultatif
+                ->add('save', 'submit');
+        // Génération du formulaire
+        $form = $formBuilder->getForm() ;
+        // Lier le formulaire et la requête : $advert contient ainsi les valeurs saisies par l'utilisateur
+        $form->handleRequest($request) ;
+        
+        if($form->isValid())
         {
-            throw $this->createNotFoundException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
+            $em = $this->getDoctrine()->getManager() ;
+            $em->persist($advert) ;
+            $em->flush() ;
+            
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.') ;
+            
+            return $this->redirect($this->generateUrl('chris_scientist_platform_view', array( 'id' => $advert->getId() ))) ;
         }
         
-        return $this->render('ChrisScientistPlatformBundle:Advert:edit.html.twig', 
-                array('advert' => $advert)) ;
+        return $this->render('ChrisScientistPlatformBundle:Advert:add.html.twig',
+                array('form' => $form->createView())) ;
     }
     
     public function deleteAction($id, Request $request)
