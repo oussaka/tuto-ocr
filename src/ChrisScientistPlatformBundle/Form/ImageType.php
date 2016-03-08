@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AdvertType extends AbstractType
+class ImageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,13 +15,8 @@ class AdvertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text')
-            ->add('date', 'date')
-            ->add('author', 'text')
-            ->add('content', 'textarea')
-            ->add('published', 'checkbox', array('required' => false))
-            ->add('image', new ImageType())
-            ->add('save', 'submit')
+            ->add('url', 'text')
+            ->add('alt', 'text')
         ;
     }
     
@@ -31,12 +26,12 @@ class AdvertType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ChrisScientistPlatformBundle\Entity\Advert'
+            'data_class' => 'ChrisScientistPlatformBundle\Entity\Image'
         ));
     }
     
     public function getName()
     {
-        return 'chris_scientist_platformbundle_advert' ;
+        return 'chris_scientist_platformbundle_image' ;
     }
 }
