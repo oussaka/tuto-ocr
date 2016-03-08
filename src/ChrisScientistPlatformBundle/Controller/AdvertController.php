@@ -58,7 +58,9 @@ class AdvertController extends Controller
     {
         // Tester la création d'un formulaire
         $advert = new Advert() ;
-        $form = $this->get('form.factory')->create(new \ChrisScientistPlatformBundle\Form\AdvertType(), $advert) ;
+        // Méthode raccourcie
+        //$form = $this->get('form.factory')->create(new \ChrisScientistPlatformBundle\Form\AdvertType(), $advert) ;
+        $form = $this->createForm(new \ChrisScientistPlatformBundle\Form\AdvertType(), $advert) ;
         // Lier le formulaire et la requête : $advert contient ainsi les valeurs saisies par l'utilisateur
         $form->handleRequest($request) ;
         
