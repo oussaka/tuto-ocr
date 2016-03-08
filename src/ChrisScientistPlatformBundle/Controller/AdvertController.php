@@ -58,17 +58,7 @@ class AdvertController extends Controller
     {
         // Tester la création d'un formulaire
         $advert = new Advert() ;
-        // Création du FormBuilder grâce au service form factory
-        $formBuilder = $this->get('form.factory')->createBuilder('form', $advert) ;
-        // Ajout des champs au formulaire
-        $formBuilder->add('title', 'text')
-                ->add('date', 'date')
-                ->add('content', 'textarea')
-                ->add('author', 'text')
-                ->add('published', 'checkbox', array('required'=>false))        # avec l'option required définit à false, le champ est ainsi facultatif
-                ->add('save', 'submit');
-        // Génération du formulaire
-        $form = $formBuilder->getForm() ;
+        $form = $this->get('form.factory')->create(new \ChrisScientistPlatformBundle\Form\AdvertType(), $advert) ;
         // Lier le formulaire et la requête : $advert contient ainsi les valeurs saisies par l'utilisateur
         $form->handleRequest($request) ;
         
