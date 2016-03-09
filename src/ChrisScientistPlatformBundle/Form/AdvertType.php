@@ -19,7 +19,6 @@ class AdvertType extends AbstractType
             ->add('date', 'date')
             ->add('author', 'text')
             ->add('content', 'textarea')
-            ->add('published', 'checkbox', array('required' => false))
             ->add('image', new ImageType(), array('required' => false))
             ->add('categories', 'entity', 
                     array(
@@ -30,6 +29,25 @@ class AdvertType extends AbstractType
                     )
             ->add('save', 'submit')
         ;
+        
+        $builder->addEventListener(\Symfony\Component\Form\FormEvents::PRE_SET_DATA, 
+                function (\Symfony\Component\Form\FormEvent $event)
+                {
+                    $advert = $event->getData() ;
+                    if(is_null($advert))
+                    {
+                        return ;
+                    }
+                    
+                    if( !($advert->getPublished()) || is_null($advert->getId()) )
+                    {
+                        $event->getForm()->add('published', 'checkbox', array('required' => false)) ;
+                    }
+                    else
+                    {
+                        $event->getForm()->remove('published') ;
+                    }
+                }) ;
     }
     
     /**
