@@ -21,11 +21,11 @@ class AdvertType extends AbstractType
             ->add('content', 'textarea')
             ->add('published', 'checkbox', array('required' => false))
             ->add('image', new ImageType(), array('required' => false))
-            ->add('categories', 'collection', 
+            ->add('categories', 'entity', 
                     array(
-                        'type' => new CategoryType(),
-                        'allow_add' => true,
-                        'allow_delete' => true
+                        'class' => 'ChrisScientistPlatformBundle:Category', // peut être remplacer par le namespace
+                        'property' => 'name',
+                        'multiple' => true
                         )
                     )
             ->add('save', 'submit')
