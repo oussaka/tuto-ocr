@@ -24,7 +24,8 @@ class AdvertType extends AbstractType
                     array(
                         'class' => 'ChrisScientistPlatformBundle:Category', // peut être remplacer par le namespace
                         'property' => 'name',
-                        'multiple' => true
+                        'multiple' => true,
+                        'expanded' => false
                         )
                     )
             ->add('save', 'submit')

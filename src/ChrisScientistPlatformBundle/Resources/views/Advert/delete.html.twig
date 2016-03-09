@@ -10,6 +10,20 @@
     <p>
         Suppression en développement...
     </p>
+    
+    <p>
+        Etes-vous certain de vouloir supprimer l'annonce "{{ advert.title }}" ?
+    </p>
+
+    {# On met l'id de l'annonce dans la route de l'action du formulaire #}
+    <form action="{{ path('chris_scientist_platform_delete', {'id': advert.id}) }}" method="post">
+        <a href="{{ path('chris_scientist_platform_view', {'id': advert.id}) }}" >
+            Retour à l'annonce
+        </a>
+        <input type="submit" value="Supprimer" />
+        {# Ceci va générer le champ CSRF #}
+        {{ form_rest(form) }}
+    </form>
 {% endblock %}
 
 {% block footer %}

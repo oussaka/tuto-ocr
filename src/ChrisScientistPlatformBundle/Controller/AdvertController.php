@@ -85,6 +85,12 @@ class AdvertController extends Controller
         
         // Tester la création d'un formulaire pour l'édition d'une entité
         $advert = $em->getRepository("ChrisScientistPlatformBundle:Advert")->find($id) ;
+        
+        if(is_null($advert))
+        {
+            throw new NotFoundHttpException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
+        }
+        
         // Création du formulaire grâce au service form factory
         $form = $this->createForm(new \ChrisScientistPlatformBundle\Form\AdvertEditType(), $advert) ;
         // Lier le formulaire et la requête : $advert contient ainsi les valeurs saisies par l'utilisateur
@@ -92,8 +98,6 @@ class AdvertController extends Controller
         
         if($form->isValid())
         {
-            $em = $this->getDoctrine()->getManager() ;
-            $em->persist($advert) ;
             $em->flush() ;
             
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.') ;
@@ -115,13 +119,22 @@ class AdvertController extends Controller
             throw $this->createNotFoundException("L'annonce dont l'ID est '" . $id . "' n'existe pas.") ;
         }
         
-        if($request->isMethod("POST"))
+        $form = $this->createFormBuilder()->getForm() ;
+        $form->handleRequest($request) ;
+        
+        if($form->isValid())
         {
+            $em->remove($advert) ;
+            $em->flush() ;
+            
             $request->getSession()->getFlashBag()->add("info", "Annonce bien supprimée.") ;
             return $this->redirect($this->generateUrl('chris_scientist_platform_home')) ;
         }
         
         return $this->render('ChrisScientistPlatformBundle:Advert:delete.html.twig', 
-                array('advert' => $advert)) ;
+                array(
+                    'advert' => $advert,
+                    'form' => $form->createView()
+                    )) ;
     }
 }
