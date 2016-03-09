@@ -1,3 +1,62 @@
 {# src/ChrisScientistPlatformBundle/Ressources/Advert/form.html.twig #}
 
 {{ form(form) }}
+
+<script src="/jquery.js" ></script>
+<script type="text/javascript" >
+    $(document).ready(function() {
+        // Récupération de la balise div qui nous intéresse
+        var container = $('div#chris_scientist_platformbundle_advert_categories') ;
+        
+        // Création d'un lien pour ajouter de nouvelles catégories
+        var addLink = $('<a href="#" id="add_category" >Ajouter une catégorie</a>') ;
+        container.append(addLink) ;
+        
+        // A chaque clic sur le lien d'ajout, on ajoute un nouveau champ
+        addLink.click(function (e) {
+            addCategory(container) ;
+            e.preventDefault() ; // évite qu'un # apparaisse dans l'URL
+            return false ;
+        }) ;
+        
+        // Définition d'un compteur pour nommer les champs
+        var index = container.find(':input').length ;
+        
+        if(index == 0) {
+            // Ajout automatique d'un premier champ
+            addCategory(container) ;
+        } else {
+            // Ajout d'un lien de suppression pour chaque catégorie existante
+            container.children('div').each(function () {
+                addDeleteLink($(this)) ;
+            }) ;
+        }
+        
+        function addCategory(aContainer) {
+            // Ramplacement de "__name__label__" par le label du champ
+            // et de "__name__" par le numéro du champ
+            var prototype = $(aContainer.attr('data-prototype')
+                    .replace(/__name__label__/g, 'Catégorie n°' + (index+1))
+                    .replace(/__name__/g, index)) ;
+            // Ajout d'un lien permettant de supprimer la catégorie
+            addDeleteLink(prototype) ;
+            // Ajout du prototype (champ) à la fin du div
+            aContainer.append(prototype) ;
+            // Incrément du compteur
+            index++ ;
+        }
+        
+        function addDeleteLink(aPrototype) {
+            // Création du lien
+            deleteLink = $('<a href="#" >Supprimer</a>') ;
+            // Ajout du lien
+            aPrototype.append(deleteLink) ;
+            // Lorsque l'on clique sur le lien, cela supprime la catégorie
+            deleteLink.click(function(e) {
+                aPrototype.remove() ;
+                e.preventDefault();
+                return false ;
+            }) ;
+        }
+    }) ;
+</script>
