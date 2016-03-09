@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo ;
  *
  * @ORM\Table(name="advert")
  * @ORM\Entity(repositoryClass="ChrisScientistPlatformBundle\Repository\AdvertRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Advert
 {
