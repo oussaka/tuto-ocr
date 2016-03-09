@@ -21,6 +21,11 @@
             <p>Message flash : {{ message }}</p>
         {% endfor %}
     </p>
+    
+    {% if not(advert.image is null) %}
+        <img src="{{ asset(advert.image.path) }}" 
+             alt="{{ advert.image.alt }}" />
+    {% endif %}
 {% endblock %}
 
 {% block footer %}
