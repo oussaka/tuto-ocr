@@ -5,6 +5,7 @@ namespace ChrisScientistPlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection ;
 use Gedmo\Mapping\Annotation as Gedmo ;
+use Symfony\Component\Validator\Constraint as Assert ;
 
 /**
  * Advert
@@ -28,6 +29,7 @@ class Advert
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\Length(min=10)
      */
     private $date;
 
@@ -42,6 +44,7 @@ class Advert
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $author;
 
@@ -49,6 +52,7 @@ class Advert
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
     
@@ -82,6 +86,7 @@ class Advert
      * 
      * @ORM\OneToOne(targetEntity="ChrisScientistPlatformBundle\Entity\Image", 
      *              cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $image ;
     
