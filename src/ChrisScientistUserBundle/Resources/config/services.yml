@@ -1,0 +1,4 @@
+services:
+#    chris_scientist_user.example:
+#        class: ChrisScientistUserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

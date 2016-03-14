@@ -6,7 +6,17 @@
         <title>{% block title %}Plateforme T{% endblock %}</title>
     </head>
     <body>
-        <h1>Plateforme T</h1>
+        <h1>
+            Plateforme T
+            <span style="font-size:12px;" >
+                {% if not(app.user is null) %}
+                    Bonjour {{ app.user.username }} |
+                    <a href="{{ url('logout') }}" >Se déconnecter</a>
+                {% else %}
+                    <a href="{{ url('login') }}" >Se connecter</a>
+                {% endif %}
+            </span>
+        </h1>
         
         {% block body %}
         {% endblock %}

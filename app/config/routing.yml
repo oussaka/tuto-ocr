@@ -1,5 +1,17 @@
+# app/config/routing.yml
+
 # Inclure les routes du bundle ChrisScientistPlatformBundle
 # et les préfixées par /platform
 chris_scientist_platform:
     resource: "@ChrisScientistPlatformBundle/Resources/config/routing.yml"
     prefix:   /platform
+
+login:
+    pattern: /login
+    defaults: { _controller: ChrisScientistUserBundle:Security:login }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
