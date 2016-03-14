@@ -50,7 +50,9 @@
         <p>Aucune annonce n'est enregistrée.</p>
     {% endfor %}
     
-    {% for itPage in range(1, nbPages) %}
-        <a href="{{ url('chris_scientist_platform_home', {'page': itPage}) }}" >{{ itPage }}</a>
-    {% endfor %}
+    {% if nbPages > 0 %}
+        {% for itPage in range(1, nbPages) %}
+            <a href="{{ url('chris_scientist_platform_home', {'page': itPage}) }}" >{{ itPage }}</a>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

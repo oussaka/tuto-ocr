@@ -27,10 +27,10 @@ class AdvertController extends Controller
         
         $nbPages = ceil(count($listAdverts)/$nbPerPage) ;
         
-        if($page > $nbPages)
-        {
-            throw $this->createNotFoundException("Page '".$page."' inexistante.") ;
-        }
+    //    if($page > $nbPages)
+    //    {
+    //        throw $this->createNotFoundException("Page '".$page."' inexistante.") ;
+    //    }
         
         return $this->render('ChrisScientistPlatformBundle:Advert:index.html.twig',
                 array('listAdverts' => $listAdverts, 
