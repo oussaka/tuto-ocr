@@ -4,7 +4,7 @@ security:
 
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-        ChrisScientistUserBundle\Entity\Utilisateur: plaintext
+        ChrisScientistUserBundle\Entity\Utilisateur: sha512
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_AUTEUR, ROLE_MODERATEUR]
@@ -20,9 +20,7 @@ security:
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
                     superadmin: { password: superadminpass, roles: [ 'ROLE_SUPER_ADMIN' ] }
         main: # nom arbitraire du provider
-            entity: # type du provider
-                class: ChrisScientistUserBundle\Entity\Utilisateur
-                property: username
+            id: fos_user.user_provider.username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -35,11 +33,13 @@ security:
             anonymous: true
             provider: main
             form_login:
-                login_path: login
-                check_path: login_check
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
             logout:
-                path: logout
+                path: fos_user_security_logout
                 target: /platform
+            remember_me:
+                key: %secret%
             # activate different ways to authenticate
 
             # http_basic: ~

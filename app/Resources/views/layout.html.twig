@@ -9,11 +9,11 @@
         <h1>
             Plateforme T
             <span style="font-size:12px;" >
-                {% if not(app.user is null) %}
-                    Bonjour {{ app.user.username }} |
-                    <a href="{{ url('logout') }}" >Se déconnecter</a>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    Connecté en tant que {{ app.user.username }} |
+                    <a href="{{ url('fos_user_security_logout') }}" >Se déconnecter</a>
                 {% else %}
-                    <a href="{{ url('login') }}" >Se connecter</a>
+                    <a href="{{ url('fos_user_security_login') }}" >Se connecter</a>
                 {% endif %}
             </span>
         </h1>
