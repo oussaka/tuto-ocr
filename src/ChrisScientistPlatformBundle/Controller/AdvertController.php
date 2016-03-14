@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request ;  // Penser à inclure cette class
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException ; // Penser à inclure cette classe !
 use ChrisScientistPlatformBundle\Entity\Advert ;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException ;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security ;
 
 class AdvertController extends Controller
 {
@@ -55,14 +56,22 @@ class AdvertController extends Controller
                 array('advert'=>$advert, 'listAdvertSkills' => $listAdvertSkills)) ;
     }
     
+    /**
+     * 
+     * @param Request $request
+     * @return type
+     * @Security("has_role('ROLE_AUTEUR')")
+     */
     public function addAction(Request $request)
     {
+        /*
+        // Sécurisation via le service authorization_checker
         $authorizationChecker = $this->get('security.authorization_checker') ;
         if( ! $authorizationChecker->isGranted('ROLE_AUTEUR') )
         {
             throw new AccessDeniedException('Accès limité aux auteurs.') ;
         }
-
+        */
         // Tester la création d'un formulaire
         $advert = new Advert() ;
         // Méthode raccourcie
