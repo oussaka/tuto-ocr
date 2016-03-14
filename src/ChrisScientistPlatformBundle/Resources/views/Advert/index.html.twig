@@ -8,7 +8,11 @@
 
 {% block chris_scientist_platform_body %}
     <ul>
-        <li><a href="{{ url('chris_scientist_platform_add') }}" >Créer une annonce</a></li>
+        {% if is_granted('ROLE_AUTEUR') %}
+            <li><a href="{{ url('chris_scientist_platform_add') }}" >Créer une annonce</a></li>
+        {% else %}
+            <li>Pas d'action disponible.</li>
+        {% endif %}
     </ul>
 
     <h2>Liste des annonces</h2>

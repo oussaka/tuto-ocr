@@ -9,6 +9,7 @@ class SecurityController extends Controller
 {
     public function loginAction(Request $request)
     {
+        // Si l'utilisateur est déjà authentifié, on le redirige sur la page d'accueil (liste des annonces)
         if( $this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED'))
         {
             return $this->redirectToRoute('chris_scientist_platform_home') ;
