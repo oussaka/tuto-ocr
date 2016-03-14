@@ -5,7 +5,7 @@ namespace ChrisScientistPlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection ;
 use Gedmo\Mapping\Annotation as Gedmo ;
-use Symfony\Component\Validator\Constraint as Assert ;
+use Symfony\Component\Validator\Constraints as Assert ;
 
 /**
  * Advert
@@ -29,7 +29,7 @@ class Advert
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
-     * @Assert\Length(min=10)
+     * @Assert\DateTime()
      */
     private $date;
 
@@ -37,6 +37,7 @@ class Advert
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\Length(min=10)
      */
     private $title;
 
