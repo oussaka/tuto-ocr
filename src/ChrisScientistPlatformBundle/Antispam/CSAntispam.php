@@ -8,11 +8,15 @@ class CSAntispam extends \Twig_Extension
     private $locale ;
     private $minLengthText ;
     
-    public function __construct(\Swift_Mailer $aMailer, $aLocale, $aMinLengthText)
+    public function __construct(\Swift_Mailer $aMailer, $aMinLengthText)
     {
         $this->mailer = $aMailer ;
-        $this->locale = $aLocale ;
         $this->minLengthText = $aMinLengthText ;
+    }
+    
+    public function setLocale($aLocale)
+    {
+        $this->locale = $aLocale ;
     }
     
     public function isSpam($aText)
