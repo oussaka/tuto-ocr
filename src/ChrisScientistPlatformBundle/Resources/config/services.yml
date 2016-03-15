@@ -2,6 +2,8 @@ services:
     chris_scientist_platform.antispam:
         class: ChrisScientistPlatformBundle\Antispam\CSAntispam
         arguments: [@mailer, %locale%, 10]
+        tags:
+            - { name: twig.extension }
     chris_scientist_platform.doctrine.notification:
         class: ChrisScientistPlatformBundle\DoctrineListener\ApplicationNotification
         arguments: [@mailer, %from_email%]

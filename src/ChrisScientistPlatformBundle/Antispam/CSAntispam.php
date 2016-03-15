@@ -2,7 +2,7 @@
 
 namespace ChrisScientistPlatformBundle\Antispam ;
 
-class CSAntispam
+class CSAntispam extends \Twig_Extension
 {
     private $mailer ;
     private $locale ;
@@ -18,5 +18,17 @@ class CSAntispam
     public function isSpam($aText)
     {
         return ( strlen($aText) < $this->minLengthText ) ;
+    }
+    
+    public function getFunctions()
+    {
+        return array(
+            new \Twig_SimpleFunction('checkIfSpam', array($this, 'isSpam'))
+        ) ;
+    }
+    
+    public function getName()
+    {
+        return 'CSAntispam' ;
     }
 }
