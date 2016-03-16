@@ -13,7 +13,7 @@ class BetaListener
     public function __construct(BetaHTML $aBetaHTML, $aEndDate)
     {
         $this->betaHTML = $aBetaHTML ;
-        $this->endDate = $aEndDate ;
+        $this->endDate = new \DateTime($aEndDate) ;
     }
     
     public function processBeta()
