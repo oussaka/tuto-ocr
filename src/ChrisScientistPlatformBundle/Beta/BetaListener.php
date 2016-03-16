@@ -3,6 +3,8 @@
 namespace ChrisScientistPlatformBundle\Beta ;
 
 use Symfony\Component\HttpFoundation\Response ;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent ;
+use Symfony\Component\HttpKernel\HttpKernelInterface ;
 
 class BetaListener
 {
@@ -16,13 +18,21 @@ class BetaListener
         $this->endDate = new \DateTime($aEndDate) ;
     }
     
-    public function processBeta()
+    public function processBeta(FilterResponseEvent $event)
     {
+        if( ! $event->isMasterRequest() )
+        {
+            return ;
+        }
+        
         $remainingDays = $this->endDate->diff(new \DateTime())->format('%d') ;
         
         if($remainingDays <= 0)
         {
             return ;
         }
+        
+        $response = $this->betaHTML->displayBeta($event->getResponse(), $remainingDays) ;
+        $event->setResponse($response) ;
     }
 }
