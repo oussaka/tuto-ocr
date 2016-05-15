@@ -4,6 +4,11 @@
 <html>
     <head>
         <title>{% block title %}Plateforme T{% endblock %}</title>
+        {% block stylesheets %}
+            {# On charge le CSS de bootstrap depuis le site directement #}
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="http://getbootstrap.com/examples/sticky-footer-navbar/sticky-footer-navbar.css">
+        {% endblock %}
     </head>
     <body>
         <h1>
@@ -18,13 +23,18 @@
             </span>
         </h1>
         
-        {% block body %}
-        {% endblock %}
-        
-        <p>
-            {% block footer %}
-                Page réalisée par {{ webmaster }}.
+        <div class="container">
+            {% block body %}
             {% endblock %}
-        </p>
+        </div>
+
+        <footer class="footer">
+          <div class="container">
+            {% block footer %}
+                <p class="text-muted">Page réalisée par {{ webmaster }}.</p>
+            {% endblock %}
+          </div>
+        </footer>
+
     </body>
 </html>
