@@ -19,7 +19,8 @@ class LoadUtilisateur implements FixtureInterface
             $user->setUsername($name) ;
             $user->setPassword($name) ;
             
-            $user->setSalt('') ;
+            $user->setEmail($name . '@yopmail.com');
+            $user->setEnabled(rand(true, false));
             $user->setRoles(array('ROLE_USER')) ;
             
             $manager->persist($user) ;
