@@ -1,0 +1,53 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title">Sign Up</div>
+            <div style="float:right; font-size: 85%; position: relative; top:-10px">
+                <a id="signinlink" href="{{ path('fos_user_security_login') }}">SignIn</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'form-horizontal'}}) }}
+
+            <div class="form-group">
+                {{ form_label(form.username, 'form.username'|trans, {'label_attr': {'class': 'control-label col-md-4'}}) }}
+                <div class="col-md-4">
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control'}})  }}
+                    {{ form_errors(form.username) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email, 'form.email'|trans, {'label_attr': {'class': 'control-label col-md-4'}}) }}
+                <div class="col-md-4">
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}})  }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.plainPassword.first, 'form.password'|trans, {'label_attr': {'class': 'control-label col-md-4'}}) }}
+                <div class="col-md-4">
+                    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}})  }}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.plainPassword.second, 'form.password_confirmation'|trans, {'label_attr': {'class': 'control-label col-md-4'}}) }}
+                <div class="col-md-4">
+                    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}})  }}
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+            </div>
+
+            <div style="margin-bottom: 25px" class="input-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <button id="btn-signup" type="submit" class="btn btn-info" name="action">
+                        {{ 'registration.submit'|trans }}
+                    </button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
